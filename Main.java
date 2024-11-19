@@ -1,26 +1,27 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         ProductManager manager = new ProductManager();
 
-        // Load the product data
+        //Load the product data
         String filePath = "amazon-product-data.csv";
         manager.loadProducts(filePath);
 
-        // three search queries
-        String[] searchIds = {
-                "6d38858169064c8b7069a19c90dd0ae4",
-                "8d78447af25f8b12fa76ad2617898627",
-                "719f2de9289b1fc7e6d90ac50bdddc23"
-        };
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the product ID to search: ");
+        String searchKey = scanner.nextLine().trim();
 
-        for (String id : searchIds) {
-            Product result = manager.searchProduct(id);
-            if (result != null) {
-                System.out.println("Product found: " + result);
-            } else {
-                System.out.println("Product not found for ID: " + id);
-            }
+        //perform the search
+        Product result = manager.searchProduct(searchKey);
+
+        if (result != null) {
+            System.out.println("Product found: " + result);
+        } else {
+            System.out.println("Product not found.");
         }
+
+        scanner.close();
 
         // two insertions: One valid and one duplicate
         Product newProduct = new Product("new123", "Product", "Category", 49.99);
